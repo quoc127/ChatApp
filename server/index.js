@@ -9,7 +9,7 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3001;
- 
+
 app.use(
   cors({
     origin: [process.env.ORIGIN],
@@ -25,11 +25,14 @@ app.use(
   })
 );
 
+//Upload image
+app.use("/uploads/profiles", express.static("uploads/profiles"));
+
 app.use(cookieParser());
 app.use(express.json());
 
 // Routes
-IndexRoutes(app)
+IndexRoutes(app);
 
 // Database
 DBconnect();
