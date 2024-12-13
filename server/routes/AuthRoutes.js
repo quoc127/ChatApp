@@ -1,5 +1,5 @@
 import { Router } from "express";
-const route = Router();
+const AuthRoutes = Router();
 import {
   addProfileImage,
   getUserInfo,
@@ -7,22 +7,25 @@ import {
   register,
   removeProfileImage,
   updateProfile,
+  logout,
 } from "../controller/AuthController.js";
 import { verifyToken } from "../middleware/AuthMiddleware.js";
 import multer from "multer";
 
 const upload = multer({ dest: "uploads/profiles" });
 
-route.post("/register", register);
-route.post("/login", login);
-route.get("/user-info", verifyToken, getUserInfo);
-route.post("/update-profile", verifyToken, updateProfile);
-route.post(
+AuthRoutes.post("/register", register);
+AuthRoutes.post("/login", login);
+AuthRoutes.get("/user-info", verifyToken, getUserInfo);
+AuthRoutes.post("/update-profile", verifyToken, updateProfile);
+AuthRoutes.post(
   "/add-profile-image",
   verifyToken,
   upload.single("profile-image"),
   addProfileImage
 );
-route.delete("/remove-profile-image", verifyToken, removeProfileImage);
+AuthRoutes.delete("/remove-profile-image", verifyToken, removeProfileImage);
 
-export default route;
+AuthRoutes.post("/logout", verifyToken, logout);
+
+export default AuthRoutes;
