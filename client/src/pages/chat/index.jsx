@@ -20,7 +20,7 @@ export const Chat = () => {
     <div className="flex h-[100vh] text-white overflow-hidden">
       <ContactContainer />
       {/* <EmptyChatContainer /> */}
-      <ChatContainer />
+      {/* <ChatContainer /> */}
     </div>
   );
 };
