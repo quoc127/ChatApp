@@ -1,3 +1,5 @@
+import { ProfileInfo } from "./components/profile-info";
+
 const Logo = () => {
   return (
     <div className="flex p-5  justify-start items-center gap-2">
@@ -47,14 +49,15 @@ export const ContactContainer = () => {
       </div>
       <div className="my-5">
         <div className="flex items-center justify-between pr-10">
-          <Title text="Direct Messages"/>
+          <Title text="Direct Messages" />
         </div>
       </div>
       <div className="my-5">
         <div className="flex items-center justify-between pr-10">
-          <Title text="Channels"/>
+          <Title text="Channels" />
         </div>
       </div>
+      <ProfileInfo />
     </div>
   );
 };
