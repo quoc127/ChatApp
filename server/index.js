@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import { DBconnect } from "./config/DBconnect.js";
 import { IndexRoutes } from "./routes/IndexRoutes.js";
 import setupSocket from "./socket.js";
+import { Server } from "socket.io";
 
 dotenv.config();
 
@@ -38,9 +39,9 @@ IndexRoutes(app);
 // Database
 DBconnect();
 
-//SocketIO
-setupSocket(server)
-
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server is running at port ${port}`);
 });
+
+//SocketIO
+setupSocket(server)
