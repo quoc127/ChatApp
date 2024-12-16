@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { DBconnect } from "./config/DBconnect.js";
 import { IndexRoutes } from "./routes/IndexRoutes.js";
+import setupSocket from "./socket.js";
 
 dotenv.config();
 
@@ -36,6 +37,9 @@ IndexRoutes(app);
 
 // Database
 DBconnect();
+
+//SocketIO
+setupSocket(server)
 
 app.listen(port, () => {
   console.log(`Server is running at port ${port}`);
