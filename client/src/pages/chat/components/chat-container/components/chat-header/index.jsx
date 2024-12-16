@@ -5,7 +5,6 @@ import { HOST } from "@/utils/contants";
 import { RiCloseFill } from "react-icons/ri";
 export const ChatHeader = () => {
   const { closeChat, selectedChatData, selectedChatType } = useAppStore();
-  console.log("selectedChatData", selectedChatData);
 
   return (
     <div className="h-[10vh] border-b-2 border-[#2f303b] flex items-center justify-between px-20">

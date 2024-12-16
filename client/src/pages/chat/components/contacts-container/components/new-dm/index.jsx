@@ -96,7 +96,7 @@ export const NewDM = () => {
                           <AvatarImage
                             src={`${HOST}/${contact.image}`}
                             alt="profile"
-                            className="object-cover w-full h-full"
+                            className="object-cover w-full h-full rounded-full"
                           />
                         ) : (
                           <div
