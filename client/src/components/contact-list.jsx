@@ -5,7 +5,6 @@ import { getColor } from "@/lib/utils";
 
 export const ContactList = ({ contacts, isChannel = false }) => {
   const {
-    selectedChatType,
     setSelectedChatType,
     selectedChatData,
     setSelectedChatData,
@@ -67,9 +66,11 @@ export const ContactList = ({ contacts, isChannel = false }) => {
                 </div>
               )}
               {isChannel ? (
-                <span>{contact.email}</span>
-              ) : (
+                <span>{contact.name}</span>
+              ) : contact.firstName ? (
                 <span>{`${contact.firstName} ${contact.lastName}`}</span>
+              ) : (
+                <span>${contact.email}</span>
               )}
             </div>
           </div>

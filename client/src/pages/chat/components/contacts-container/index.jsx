@@ -2,7 +2,10 @@ import { useEffect } from "react";
 import { NewDM } from "./components/new-dm";
 import { ProfileInfo } from "./components/profile-info";
 import { apiClient } from "@/lib/api-client";
-import { GET_DM_CONTACTS_ROUTES } from "@/utils/contants";
+import {
+  GET_DM_CONTACTS_ROUTES,
+  GET_USER_CHANNEL_ROUTES,
+} from "@/utils/contants";
 import { useAppStore } from "@/store";
 import { ContactList } from "@/components/contact-list";
 import { CreateChannel } from "./components/create-channel";
@@ -49,8 +52,12 @@ const Title = ({ text }) => {
 };
 
 export const ContactContainer = () => {
-  const { directMessagesContacts, setDirectMessagesContacts, channels } =
-    useAppStore();
+  const {
+    directMessagesContacts,
+    setDirectMessagesContacts,
+    channels,
+    setChannels,
+  } = useAppStore();
 
   useEffect(() => {
     const getContacts = async () => {
@@ -61,8 +68,19 @@ export const ContactContainer = () => {
         setDirectMessagesContacts(response.data.contacts);
       }
     };
+
+    const getChannels = async () => {
+      const response = await apiClient.get(GET_USER_CHANNEL_ROUTES, {
+        withCredentials: true,
+      });
+      if (response.data.channels) {
+        setChannels(response.data.channels);
+      }
+    };
+
     getContacts();
-  }, []);
+    getChannels();
+  }, [setChannels, setDirectMessagesContacts]);
 
   return (
     <div className="relative md:w-[35vw] lg:w-[30vw] xl:w-[20vw] bg-[#1b1c24] border-r-2 border-[#2f303b] w-full">
