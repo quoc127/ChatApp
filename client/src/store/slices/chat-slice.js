@@ -3,6 +3,15 @@ export const createChatSlice = (set, get) => ({
   selectedChatData: undefined,
   selectedChatMessages: [],
   directMessagesContacts: [],
+  isUploading: false,
+  isDownLoading: false,
+  fileUploadProgress: 0,
+  fileDownloadProgress: 0,
+  setIsUpLoading: (isUploading) => set({ isUploading }),
+  setIsDownLoading: (isDownLoading) => set({ isDownLoading }),
+  setFileUploadProgress: (fileUploadProgress) => set({ fileUploadProgress }),
+  setFileDownloadProgress: (fileDownloadProgress) =>
+    set({ fileDownloadProgress }),
   setSelectedChatType: (selectedChatType) => set({ selectedChatType }),
   setSelectedChatData: (selectedChatData) => set({ selectedChatData }),
   setSelectedChatMessages: (selectedChatMessages) =>

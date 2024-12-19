@@ -6,10 +6,16 @@ import EmojiPicker from "emoji-picker-react";
 import { useAppStore } from "@/store";
 import { useSocket } from "@/context/SocketContext";
 import { apiClient } from "@/lib/api-client";
-import { UPDATE_PROFILLE_ROUTE, UPLOAD_FILE } from "@/utils/contants";
+import { UPLOAD_FILE } from "@/utils/contants";
 
 export const MessageBar = () => {
-  const { selectedChatType, selectedChatData, userInfo } = useAppStore();
+  const {
+    selectedChatType,
+    selectedChatData,
+    userInfo,
+    setIsUpLoading,
+    setFileUploadProgress,
+  } = useAppStore();
   const socket = useSocket();
   const emojiRef = useRef();
   const fileInputRef = useRef();
@@ -44,10 +50,15 @@ export const MessageBar = () => {
       if (file) {
         const formData = new FormData();
         formData.append("file", file);
+        setIsUpLoading(true);
         const response = await apiClient.post(UPLOAD_FILE, formData, {
           withCredentials: true,
+          onUploadProgress: (data) => {
+            setFileUploadProgress(Math.round(100 * data.loaded) / data.total);
+          },
         });
         if (response.status === 200 && response.data) {
+          setIsUpLoading(false);
           if (selectedChatType === "contact") {
             socket.emit("sendMessage", {
               sender: userInfo.id,
@@ -60,6 +71,7 @@ export const MessageBar = () => {
         }
       }
     } catch (error) {
+      setIsUpLoading(false);
       console.log(error);
     }
   };
