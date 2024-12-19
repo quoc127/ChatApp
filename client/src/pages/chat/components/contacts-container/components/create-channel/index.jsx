@@ -18,6 +18,7 @@ import Lottie from "react-lottie";
 import { animationDefaultOptions, getColor } from "@/lib/utils";
 import { apiClient } from "@/lib/api-client";
 import {
+  CREATE_CHANNEL_ROUTES,
   GET_ALL_CONTACTS_ROUTES,
   HOST,
   SEARCH_CONTACT_ROUTUES,
@@ -29,13 +30,37 @@ import { Button } from "@/components/ui/button";
 import MultipleSelector from "@/components/ui/multipleselect";
 
 export const CreateChannel = () => {
-  const { setSelectedChatType, setSelectedChatData } = useAppStore();
+  const { setSelectedChatType, setSelectedChatData, addChannel } =
+    useAppStore();
   const [newChannelModal, setNewChannelModal] = useState(false);
   const [searchedContacts, setSearchedContacts] = useState([]);
 
   const [allContacts, setAllContacts] = useState([]);
   const [selectedContacts, setSelectedContacts] = useState([]);
   const [channelName, setChannelName] = useState("");
+
+  const createChannel = async () => {
+    try {
+      if (channelName.length > 0 && selectedContacts.length > 0) {
+        const response = await apiClient.post(
+          CREATE_CHANNEL_ROUTES,
+          {
+            name: channelName,
+            members: selectedContacts.map((contact) => contact.value),
+          },
+          { withCredentials: true }
+        );
+        if (response.status === 201) {
+          setChannelName("")
+          setSelectedContacts([])
+          setNewChannelModal(false)
+          addChannel(response.data.channel)
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     const getData = async () => {
@@ -93,7 +118,7 @@ export const CreateChannel = () => {
           <div>
             <Button
               className="w-full bg-purple-700 hover:bg-purple-900 transition-all duration-300"
-              // onClick={createChannel}
+              onClick={createChannel}
             >
               Create Channel
             </Button>

@@ -49,7 +49,8 @@ const Title = ({ text }) => {
 };
 
 export const ContactContainer = () => {
-  const { directMessagesContacts, setDirectMessagesContacts } = useAppStore();
+  const { directMessagesContacts, setDirectMessagesContacts, channels } =
+    useAppStore();
 
   useEffect(() => {
     const getContacts = async () => {
@@ -81,6 +82,9 @@ export const ContactContainer = () => {
         <div className="flex items-center justify-between pr-10">
           <Title text="Kênh" />
           <CreateChannel />
+        </div>
+        <div className="max-h-[38vh] overflow-y-auto scrollbar-hidden">
+          <ContactList contacts={channels} isChannel={true} />
         </div>
       </div>
       <ProfileInfo />
