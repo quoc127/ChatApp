@@ -5,6 +5,7 @@ import { apiClient } from "@/lib/api-client";
 import { GET_DM_CONTACTS_ROUTES } from "@/utils/contants";
 import { useAppStore } from "@/store";
 import { ContactList } from "@/components/contact-list";
+import { CreateChannel } from "./components/create-channel";
 
 const Logo = () => {
   return (
@@ -69,7 +70,7 @@ export const ContactContainer = () => {
       </div>
       <div className="my-5">
         <div className="flex items-center justify-between pr-10">
-          <Title text="Direct Messages" />
+          <Title text="Tin nhắn trực tiếp" />
           <NewDM />
         </div>
         <div className="max-h-[38vh] overflow-y-auto scrollbar-hidden">
@@ -78,7 +79,8 @@ export const ContactContainer = () => {
       </div>
       <div className="my-5">
         <div className="flex items-center justify-between pr-10">
-          <Title text="Channels" />
+          <Title text="Kênh" />
+          <CreateChannel />
         </div>
       </div>
       <ProfileInfo />
